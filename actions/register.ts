@@ -1,10 +1,10 @@
 "use server"
 import { revalidatePath, revalidateTag } from "next/cache"
 import * as z from "zod"
-import { LoginSchema } from "@/schemas"
-export const login = async (values: any) => {
+import { RegisterSchema } from "@/schemas"
+export const register = async (values: any) => {
     console.log(values)
-    const validatedFields = LoginSchema.safeParse(values);
+    const validatedFields = RegisterSchema.safeParse(values);
     if (!validatedFields.success) {
         return { error: "Invalid Fields!" };
     }

@@ -24,6 +24,7 @@ export const LoginForm = () => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
+    
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -35,11 +36,12 @@ export const LoginForm = () => {
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         setError("");
         setSuccess("");
+        
         startTransition(() => {
             login(values)
             .then((data) => {
-                setError(data.error);
-                setSuccess(data.success);
+                setError(data?.error);
+                setSuccess(data?.success);
 
             }) 
         })

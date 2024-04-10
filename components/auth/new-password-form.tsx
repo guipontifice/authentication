@@ -5,7 +5,7 @@ import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
-import { LoginSchema } from "@/schemas";
+import { ResetSchema } from "@/schemas";
 import { Button } from "../ui/button";
 import { CardWrapper } from "./card-wraper"
 import {
@@ -18,28 +18,31 @@ import {
 } from "@/components/ui/form"
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-sucess";
-import { login } from "@/actions/login";
+import { reset } from "@/actions/reset";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-export const LoginForm = () => {
+
+export const ResetForm = () => {
+    const searchParams = useSearchParams();
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
 
-    const form = useForm<z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<z.infer<typeof ResetSchema>>({
+        resolver: zodResolver(ResetSchema),
         defaultValues: {
             email: "",
             password: ""
         }
     })
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof ResetSchema>) => {
         setError("");
         setSuccess("");
 
         startTransition(() => {
-            login(values)
+            reset(values)
                 .then((data) => {
                     setError(data?.error);
                     setSuccess(data?.success);
@@ -50,9 +53,9 @@ export const LoginForm = () => {
 
     return (
         <CardWrapper
-            headerLabel="Login"
-            backButtonLabel="Don't have an account?"
-            backButtonHref="/auth/register"
+            headerLabel="Forgot your password?"
+            backButtonLabel="Back to login?"
+            backButtonHref="/auth/login"
             showSocial
         >
             <Form {...form}>
@@ -113,7 +116,7 @@ export const LoginForm = () => {
                         type="submit"
                         className="w-full"
                     >
-                        Login
+                        Send Reset Email
                     </Button>
                 </form>
             </Form>

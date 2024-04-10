@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { RegisterSchema } from "@/schemas"
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/token";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const register = async (values: any) => {
     console.log(values)
@@ -30,7 +31,10 @@ export const register = async (values: any) => {
     })
 
     const verificationToken = await generateVerificationToken(email);
-
+    await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token
+    );
 
     return { success: "Confirmation email sent!" };
 }

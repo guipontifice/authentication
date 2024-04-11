@@ -54,7 +54,7 @@ export const ResetForm = () => {
     return (
         <CardWrapper
             headerLabel="Forgot your password?"
-            backButtonLabel="Back to login?"
+            backButtonLabel="Back to login"
             backButtonHref="/auth/login"
             showSocial
         >
@@ -77,15 +77,15 @@ export const ResetForm = () => {
                                             type="email"
                                         />
                                     </FormControl>
-                                    <Button 
-                                    size="sm"
-                                    variant="link"
-                                    asChild
-                                    className="px-0 font-normal"
+                                    <Button
+                                        size="sm"
+                                        variant="link"
+                                        asChild
+                                        className="px-0 font-normal"
                                     >
                                         <Link href="/auth/reset/">
                                             Forgot Password
-                                        </Link> 
+                                        </Link>
                                     </Button>
                                     <FormMessage />
                                 </FormItem>

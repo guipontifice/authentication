@@ -13,9 +13,5 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils"
-  },
-  "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma",
-    "editor.formatOnSave": true
   }
 }

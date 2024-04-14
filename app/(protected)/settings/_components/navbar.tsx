@@ -3,13 +3,13 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { UserButton } from "@/components/auth/user-button";
 export const Navbar = () => {
     const pathname = usePathname();
     return (
         <nav className="bg-secondary flex justify-between items-center p-4 rounded-xl w-[600px] shadow-sm">
             <div className="flex gap-x-2">
-            <Button
+                <Button
                     asChild
                     variant={pathname === "/client" ?
                         "default" : "outline"}
@@ -18,7 +18,7 @@ export const Navbar = () => {
                         Client
                     </Link>
                 </Button>
-            <Button
+                <Button
                     asChild
                     variant={pathname === "/server" ?
                         "default" : "outline"}
@@ -37,7 +37,7 @@ export const Navbar = () => {
                     </Link>
                 </Button>
             </div>
-            <p>User Button</p>
+            <UserButton />
         </nav>
     )
 }

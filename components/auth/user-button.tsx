@@ -14,6 +14,7 @@ import { FaUser } from "react-icons/fa";
 import { LogoutButton } from "./logout-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { SessionProvider } from "next-auth/react";
 
 export const UserButton = () => {
     const user = useCurrentUser();
@@ -21,7 +22,9 @@ export const UserButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar>
-                    <AvatarImage src={user?.image || ""} />
+                    <SessionProvider>
+                        <AvatarImage src={user?.image || ""} />
+                    </SessionProvider>
                     <AvatarFallback className="bg-sky-500">
                         <FaUser className="text-white" />
                     </AvatarFallback>

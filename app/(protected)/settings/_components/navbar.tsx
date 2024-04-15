@@ -4,11 +4,21 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@/components/auth/user-button";
+import { SessionProvider } from "next-auth/react";
 export const Navbar = () => {
     const pathname = usePathname();
     return (
         <nav className="bg-secondary flex justify-between items-center p-4 rounded-xl w-[600px] shadow-sm">
             <div className="flex gap-x-2">
+                <Button
+                    asChild
+                    variant={pathname === "/server" ?
+                        "default" : "outline"}
+                >
+                    <Link href="/server">
+                        server
+                    </Link>
+                </Button>
                 <Button
                     asChild
                     variant={pathname === "/client" ?
@@ -20,11 +30,11 @@ export const Navbar = () => {
                 </Button>
                 <Button
                     asChild
-                    variant={pathname === "/server" ?
+                    variant={pathname === "/admin" ?
                         "default" : "outline"}
                 >
-                    <Link href="/server">
-                        server
+                    <Link href="/admin">
+                        Admin
                     </Link>
                 </Button>
                 <Button

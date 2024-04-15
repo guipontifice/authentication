@@ -1,3 +1,5 @@
+import { Navbar } from "../(protected)/settings/_components/navbar";
+
 const AuthLayout = ({ children }:
     {
         children: React.ReactNode
@@ -5,7 +7,7 @@ const AuthLayout = ({ children }:
     return (
         <div className="h-full flex items-center justify-center 
             bg[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops)))] from-sky-400 to-blue-800">
-            <nav className="bg-red-500 text-white">This is auth navbar</nav>
+            <Navbar />
             {children}
         </div>
     );

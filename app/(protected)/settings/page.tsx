@@ -1,11 +1,11 @@
 import { logout } from "@/actions/logout";
-import { auth, signOut } from "@/auth";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { useSession } from "next-auth/react";
+
 const SettingsPage = async () => {
     const user = useCurrentUser();
 
     const onClick = () => {
+        console.log(user)
         logout();
     }
     return (

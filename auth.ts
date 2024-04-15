@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { User } from "@prisma/client"
+import { UserRole } from "@prisma/client"
 import NextAuth from "next-auth"
 import { db } from "./lib/db"
 import { getUserById } from "./data/user"
@@ -27,7 +27,7 @@ export const {
         async signIn({ user, account }) {
             if (account?.provider !== "credentials") return true;
 
-            const existingUser =  await getUserById(user.id);
+            const existingUser =  await getUserById(user.id || '');
 
             if (!existingUser?.emailVerified) return false;
 
@@ -51,7 +51,11 @@ export const {
         }
 
         if (token.role && session.user) {
-            session.user.role = token.role as User;
+            session.user.role = token.role as UserRole;
+        }
+
+        if (session.user) {
+            session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
         }
         return session;
     },
@@ -59,11 +63,13 @@ export const {
     async jwt({ token }) {
         if (!token.sub) return token;
 
-        const existingUser = await getUserById(Number(token.sub));
+        const existingUser = await getUserById(token.sub);
 
         if (!existingUser) return token;
 
         token.role = existingUser;
+        token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+
         return token
     }
 },

@@ -1,25 +1,25 @@
 import { db } from "@/lib/db";
 
-export const getTwoFactorTokenByToken = async (token: string) => {
-    try {
-        const twoFactorToken = await db.twoFactorToken.findUnique({
-            where: { token }
-        });
+export const getPasswordResetTokenByToken = async (token: string) => {
+  try {
+    const passwordResetToken = await db.passwordResetToken.findUnique({
+      where: { token }
+    });
 
-        return twoFactorToken
-    } catch {
-        return null;
-    }
-}
+    return passwordResetToken;
+  } catch {
+    return null;
+  }
+};
 
 export const getTwoFactorTokenByEmail = async (email: string) => {
-    try {
-        const twoFactorToken = await db.twoFactorToken.findUnique({
-            where: { email }
-        });
+  try {
+    const passwordResetToken = await db.passwordResetToken.findFirst({
+      where: { email }
+    });
 
-        return twoFactorToken
-    } catch {
-        return null;
-    }
-}
+    return passwordResetToken;
+  } catch {
+    return null;
+  }
+};

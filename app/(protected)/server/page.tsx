@@ -5,7 +5,7 @@ const ServerPage = async () => {
     const user = await currentUser();
     return (
         <UserInfo 
-        label="💻 pServer component"
+        label="💻 Server component"
         user={user}
         />
     )

@@ -25,9 +25,10 @@ export const {
     },
     callbacks: {
         async signIn({ user, account }) {
+            console.log(user, account)
             if (account?.provider !== "credentials") return true;
 
-            const existingUser =  await getUserById(user.id || '');
+            const existingUser = await getUserById(user.id);
 
             if (!existingUser?.emailVerified) return false;
 
@@ -42,37 +43,45 @@ export const {
             }
 
             return true;
-    },
-
+        },
 
         async session({ token, session }) {
-        if (token.sub && session.user) {
-            session.user.id = token.sub;
-        }
+            if (token.sub && session.user) {
+                session.user.id = token.sub;
+            }
 
-        if (token.role && session.user) {
-            session.user.role = token.role as UserRole;
-        }
+            if (token.role && session.user) {
+                session.user.role = token.role as UserRole;
+            }
 
-        if (session.user) {
-            session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+            if (session.user) {
+                session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+            }
+
+            if (session.user) {
+                session.user.name = token.name;
+                session.user.email = token.email;
+            }
+
+            return session;
+        },
+
+        async jwt({ token }) {
+            if (!token.sub) return token;
+
+            const existingUser = await getUserById(token.sub);
+
+            if (!existingUser) return token;
+
+            token.name = existingUser.name;
+            token.role = existingUser;
+            token.email = existingUser.email;
+            token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+
+            return token
         }
-        return session;
     },
 
-    async jwt({ token }) {
-        if (!token.sub) return token;
-
-        const existingUser = await getUserById(token.sub);
-
-        if (!existingUser) return token;
-
-        token.role = existingUser;
-        token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-
-        return token
-    }
-},
     adapter: PrismaAdapter(db),
     session: { strategy: "jwt" },
     ...authConfig

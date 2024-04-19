@@ -15,7 +15,7 @@ export const Navbar = () => {
                         "default" : "outline"}
                 >
                     <Link href="/server">
-                        server
+                        Server
                     </Link>
                 </Button>
                 <Button

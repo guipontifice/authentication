@@ -35,7 +35,5 @@
     "prisma/schema.prisma",
     "prisma/schema.prisma"
   ],
-  "exclude": [
-    "schemas/node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

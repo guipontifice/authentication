@@ -22,7 +22,7 @@ export const NewVerificationForm = () => {
             setError("Token is missing!");
             return
         }
-        
+
         newVerification(token)
             .then((data) => {
                 setSuccess(data.success);
@@ -32,7 +32,7 @@ export const NewVerificationForm = () => {
                 setError("Something went wrong!")
             })
 
-    }, [token])
+    }, [token, success, error])
 
     useEffect(() => {
         onSubmit();

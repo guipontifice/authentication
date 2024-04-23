@@ -2,18 +2,18 @@ import NextAuth from "next-auth"
 import { UserRole } from "@prisma/client"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
-import { db } from "./lib/db"
-import authConfig from "./auth.config"
-import { getUserById } from "./data/user"
-import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation"
-import { getAccountByUserId } from "./data/account"
+import { db } from "@/lib/db"
+import authConfig from "@/auth.config"
+import { getUserById } from "@/data/user"
+import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation"
+import { getAccountByUserId } from "@/data/account"
 
 export const {
     handlers: { GET, POST },
     auth,
     signIn,
     signOut,
-    update,
+    unstable_update,
 } = NextAuth({
     pages: {
         signIn: "/auth/login",
@@ -65,7 +65,7 @@ export const {
 
             if (session.user) {
                 session.user.name = token.name;
-                session.user.email = token.email;
+                session.user.email = token.email || session.user.email;
                 session.user.isOAuth = token.isOAuth as boolean;
             }
 

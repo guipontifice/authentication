@@ -6,7 +6,7 @@ import { SettingsSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { update } from "@/auth";
+import { unstable_update } from "@/auth";
 import { generateVerificationToken } from "@/lib/token";
 import { sendVerificationEmail } from "@/lib/mail";
 export const settings = async (
@@ -69,7 +69,7 @@ export const settings = async (
         }
     });
 
-    update({
+    unstable_update({
         user: {
             name: updatedUser.name,
             email: updatedUser.email,

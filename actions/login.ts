@@ -1,10 +1,12 @@
 "use server"
+
 import * as z from "zod"
+import { AuthError } from "next-auth"
+
 import { signIn } from "@/auth"
 import { LoginSchema } from "@/schemas"
 import { sendVerificationEmail, sendTwoFactorTokenEmail } from "@/lib/mail"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
-import AuthError from "next-auth"
 import { getUserByEmail } from "@/data/user"
 import { generateVerificationToken } from "@/lib/token"
 import { generateTwoFactorToken } from "@/lib/token"

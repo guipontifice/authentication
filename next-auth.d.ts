@@ -12,4 +12,10 @@ declare module "next-auth" {
     interface Session {
         user: ExtendedUser
     }
+    interface NextAuthOptions {
+        session: {
+            user: ExtendedUser
+        }
+    }
 }
+

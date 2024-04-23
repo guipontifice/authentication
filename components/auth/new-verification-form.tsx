@@ -18,7 +18,11 @@ export const NewVerificationForm = () => {
 
     const onSubmit = useCallback(() => {
         if (success || error) return;
-        if (!token) return
+        if (!token) {
+            setError("Token is missing!");
+            return
+        }
+        
         newVerification(token)
             .then((data) => {
                 setSuccess(data.success);
